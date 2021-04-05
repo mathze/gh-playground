@@ -20,19 +20,21 @@ Steps to reproduce the behavior:
 **Expected behavior**
 A clear and concise description of what you expected to happen.
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+**Data/Screenshots**
+If applicable, add logs, screenshots or other content to help explain your problem and our investigation.
 
 **Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+- OS: [e.g. Windows]
+- OS-Version: [e.g. 10 - 20H2 (Build 19042.906)]
+- Browser [e.g. firefox, edge]
+- Version [e.g. 89.0.774.68]
 
 **Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+- Device: [e.g. HTC 10]
+- OS: [e.g. Android]
+- OS-Version: [e.g. 6]
+- Browser [e.g. Opera]
+- Version [e.g. 62.3.3146.57763]
 
 **Additional context**
 Add any other context about the problem here.
