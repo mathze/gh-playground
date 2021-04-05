@@ -1,0 +1,3 @@
+= gh-playground
+
+just a playground for gh-actions, integration and templates stuff, nothing world-shaking here😋
