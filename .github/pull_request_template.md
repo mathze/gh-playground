@@ -1,11 +1,6 @@
----
-name: Create a PR
-about: Use this template if your work is done, and you want it to get reviewed.
----
-
 Dear *author* please check the below `commitment checklist`. Don't worry if you cannot put a mark on each, just note in a comment why.
 
-Dear *reviewer(s)* same to you😀 If anything can't be resolved, take in another reviewer.
+Dear *reviewer(s)* same applies to you😀 If something cannot be resolved, don't hesitate to consult another reviewer.
 
 Commitment checklist
 * [ ] The PR is complete (no missing files, incomplete stuff)
