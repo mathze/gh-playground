@@ -23,9 +23,7 @@ jobs:
           git config user.email "noreply@github.com"
 
       - name: Bump version
-        run: |
-          chmod +x gradlew
-          ./gradlew updateVersion -PnewVersion="${{ github.event.inputs.target_version }}"
+        run: ./gradlew updateVersion -PnewVersion="${{ github.event.inputs.target_version }}"
 
       - name: Commit changes
         id: make-commit
