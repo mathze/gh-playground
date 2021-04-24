@@ -6,6 +6,9 @@ os: linux
 dist: trusty
 jdk: openjdk11
 
+git:
+  quiet: true
+
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -17,13 +20,15 @@ cache:
 
 before_script:
   - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash"
+  - git branch --show-current
 
 jobs:
   include:
     - stage: check
+      name: "Detekt"
       script: ./gradlew detekt
-
-    - script:
+    - name: "Fossa"
+      script:
       - fossa init
       - fossa analyze
 
@@ -31,9 +36,10 @@ jobs:
       script: ./gradlew classes
 
     - stage: test
+      name: "Unit tests"
       script: ./gradlew test
-    - script:
-      - fossa test
+    - name: "License check"
+      script: fossa test
 
     - stage: build artifact
       script: ./gradlew bootJar
