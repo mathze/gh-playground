@@ -20,9 +20,7 @@ cache:
 
 before_script:
   - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash"
-  - |
-    git reset --hard $sha1
-    git branch -M $TRAVIS_BRANCH
+  - git checkout "$TRAVIS_BRANCH"
 
 jobs:
   include:
