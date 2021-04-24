@@ -15,10 +15,19 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
+before_script:
+  - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash"
+
 jobs:
   include:
     - stage: check
       script: ./gradlew detekt
+    - env:
+        - FOSSA_API_KEY=$FOSSA_API_KEY
+      before_script:
+        fossa init
+      script:
+      - fossa analyze
 
     - stage: compile
       script: ./gradlew classes
