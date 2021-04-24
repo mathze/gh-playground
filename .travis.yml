@@ -20,7 +20,7 @@ cache:
 
 before_script:
   - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash"
-  - git rev-parse --abbrev-ref HEAD
+  - git branch --track $BRANCH_NAME
 
 jobs:
   include:
