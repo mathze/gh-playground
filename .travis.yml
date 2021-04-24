@@ -22,11 +22,9 @@ jobs:
   include:
     - stage: check
       script: ./gradlew detekt
-    - env:
-        - FOSSA_API_KEY=$FOSSA_API_KEY
-      before_script:
-        fossa init
-      script:
+
+    - script:
+      - fossa init
       - fossa analyze
 
     - stage: compile
@@ -34,6 +32,8 @@ jobs:
 
     - stage: test
       script: ./gradlew test
+    - script:
+      - fossa test
 
     - stage: build artifact
       script: ./gradlew bootJar
