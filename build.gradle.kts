@@ -93,8 +93,8 @@ publishing {
       name = "GitHubPackages"
       url = uri("https://maven.pkg.github.com/mathze/gh-playground")
       credentials {
-        username = project.findProperty("publish.gh.mathze.gpr.usr") as String? ?: System.getenv("GH_MATHZE_USERNAME")
-        password = project.findProperty("publish.gh.mathze.gpr.key") as String? ?: System.getenv("GH_MATHZE_TOKEN")
+        username = project.findProperty("publish.gh.mathze.gpr.usr") as String? ?: System.getenv("USERNAME")
+        password = project.findProperty("publish.gh.mathze.gpr.key") as String? ?: System.getenv("TOKEN")
       }
     }
   }

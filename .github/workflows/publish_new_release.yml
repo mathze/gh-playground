@@ -35,8 +35,15 @@ jobs:
           target_commitish: ${{ github.event.pull_request.merge_commit_sha }}
           tag_name: v${{ env.RELEASE_VERSION }}
           name: ${{ env.RELEASE_VERSION }}
+          file: target/release/mything
           draft: false
           prerelease: false
+      - name: Publish artifact
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: ${{ github.actor }}
+        run: |
+          ./gradlew publish
 
   updateDevelop:
     name: "Reintegrate to develop"
