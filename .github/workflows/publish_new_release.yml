@@ -57,7 +57,7 @@ jobs:
           git config user.email "noreply@github.com"
           git fetch
           git checkout develop
-          git merge main
+          git merge origin/main
 
       - name: Create next version
         run: ./gradlew updateVersion -PnewVersion=snapshot
