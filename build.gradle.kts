@@ -8,7 +8,6 @@ plugins {
   id("org.springframework.boot")
 
   jacoco
-  id("org.sonarqube")
   id("io.gitlab.arturbosch.detekt")
 
   id("org.jetbrains.dokka")
@@ -56,6 +55,10 @@ configure<io.gitlab.arturbosch.detekt.extensions.DetektExtension> {
     xml.enabled = true
     txt.enabled = false
   }
+}
+
+jacoco {
+  toolVersion = "0.8.6"
 }
 
 tasks.test {
