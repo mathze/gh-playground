@@ -58,8 +58,8 @@ jobs:
 
     - stage: report
       name: "Codecov"
-
       workspaces:
         use: tests
       script:
-        - bash <(curl -s https://codecov.io/bash)
+        - ./gradlew jacocoTestReport
+        - bash <(curl -s https://codecov.io/bash) -B "$TRAVIS_BRANCH"

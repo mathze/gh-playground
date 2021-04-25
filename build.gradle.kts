@@ -63,6 +63,17 @@ jacoco {
 
 tasks.test {
   useJUnitPlatform()
+  testLogging {
+    events("passed", "skipped", "failed")
+  }
+}
+
+tasks.withType<JacocoReport> {
+  reports {
+    xml.isEnabled = true
+    html.isEnabled = true
+    csv.isEnabled = false
+  }
 }
 
 tasks.named<org.jetbrains.dokka.gradle.DokkaTask>("dokkaHtml") {
