@@ -28,7 +28,6 @@ jobs:
       script: ./gradlew detekt
     - name: "Fossa"
       script:
-      - fossa init
       - fossa --branch "$TRAVIS_BRANCH" analyze
 
     - stage: compile
