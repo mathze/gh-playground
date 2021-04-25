@@ -34,6 +34,8 @@ jobs:
       workspaces:
         create:
           name: compiled
+          paths:
+            - .
       script: ./gradlew classes
 
     - stage: test
@@ -43,6 +45,8 @@ jobs:
           compiled
         create:
           name: tests
+          paths:
+            - .
       script: ./gradlew test
     - name: "License check"
       script: fossa test
