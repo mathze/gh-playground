@@ -49,6 +49,9 @@ jobs:
             - .
       script: ./gradlew test
     - name: "License check"
+      workspaces:
+        use:
+          compiled
       script: fossa test
 
     - stage: build artifact
