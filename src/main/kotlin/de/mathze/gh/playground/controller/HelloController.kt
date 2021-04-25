@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.RestController
 class HelloController {
 
   @GetMapping("hi")
-  fun sayHello(
-    @RequestParam(name = "name", required = false) name: String?
-  ) = "Hello " + if (name.isNullOrBlank()) {
-    "who ever"
-  } else {
-    name.toLowerCase().split(Regex("\\s+")).joinToString(" ") { it.capitalize() }
+  fun sayHello(@RequestParam(name = "name", required = false) name: String?): String {
+    return "Hello " +
+        if (name.isNullOrBlank()) {
+          "who ever"
+        } else {
+          name.toLowerCase().split(Regex("\\s+")).joinToString(" ") { it.capitalize() }
+        }
   }
 }
