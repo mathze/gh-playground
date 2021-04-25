@@ -42,3 +42,9 @@ jobs:
 
     - stage: build artifact
       script: ./gradlew bootJar
+
+    - stage: report
+      name: "Codecov"
+      script:
+        - bash <(curl -s https://codecov.io/bash)
+        -
