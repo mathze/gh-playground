@@ -39,7 +39,6 @@ dependencies {
     implementation(group = "org.springframework.boot", name = it)
   }
 
-
   testImplementation(group = "org.springframework.boot", name = "spring-boot-starter-test")
   testImplementation(group = "org.jetbrains.kotlin", name = "kotlin-test-junit5")
   testRuntimeOnly(group = "org.junit.jupiter", name = "junit-jupiter-engine")
@@ -115,13 +114,14 @@ tasks.register("updateVersion") {
     |  > ./gradlew updateVersion -PnewVersion="the new version"
   """.trimMargin()
 
-
   doLast {
-    val newVersion = project.findProperty("newVersion") as String? ?: throw IllegalArgumentException("No `newVersion` specified! Usage: ./gradlew updateVersion -PnewVersion=<version>")
+    val newVersion = project.findProperty("newVersion") as String?
+      ?: throw IllegalArgumentException("No `newVersion` specified! Usage: ./gradlew updateVersion -PnewVersion=<version>")
 
     val propsFile = files("./gradle.properties").singleFile
     if (!propsFile.exists()) {
-      throw UnsupportedOperationException("This task requires version to be stored in gradle.properties file, which does not exist!")
+      val msg = "This task requires version to be stored in gradle.properties file, which does not exist!"
+      throw UnsupportedOperationException(msg)
     }
     val props = Properties()
     props.load(propsFile.inputStream())
