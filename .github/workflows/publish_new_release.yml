@@ -37,3 +37,26 @@ jobs:
           name: ${{ env.RELEASE_VERSION }}
           draft: false
           prerelease: false
+
+  updateDevelop:
+    name: "Reintegrate to develop"
+    runs-on: ubuntu-latest
+    steps:
+      - name: prepare merge
+        run: |
+          git config user.name "${{ github.actor }} action"
+          git config user.email "noreply@github.com"
+          git fetch
+          git checkout develop
+          git merge main
+
+      - name: Create next version
+        run: ./gradlew updateVersion -PnewVersion=snapshot
+
+      - name: Commit changes
+        run: |
+          git add gradle.properties
+          git commit --message "Reintegrate master to develop + version bump"
+
+      - name: Push to develop
+        run: git push
