@@ -40,8 +40,6 @@ jobs:
 
     - stage: test
       name: "Unit tests"
-      git:
-        clone: false
       workspaces:
         use:
           compiled
@@ -51,24 +49,18 @@ jobs:
             - .
       script: ./gradlew test
     - name: "License check"
-      git:
-        clone: false
       workspaces:
         use:
           compiled
       script: fossa test
 
     - stage: build artifact
-      git:
-        clone: false
       workspaces:
         use: compiled
       script: ./gradlew bootJar
 
     - stage: report
       name: "Codecov"
-      git:
-        clone: false
       workspaces:
         use: tests
       script:
