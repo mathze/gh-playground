@@ -116,7 +116,10 @@ tasks.register("updateVersion") {
 
   doLast {
     val newVersion = project.findProperty("newVersion") as String?
-      ?: throw IllegalArgumentException("No `newVersion` specified! Usage: ./gradlew updateVersion -PnewVersion=<version>")
+      ?: throw IllegalArgumentException(
+        "No `newVersion` specified!" +
+            " Usage: ./gradlew updateVersion -PnewVersion=<version>"
+      )
 
     val propsFile = files("./gradle.properties").singleFile
     if (!propsFile.exists()) {
