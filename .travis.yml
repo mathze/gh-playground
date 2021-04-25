@@ -31,18 +31,31 @@ jobs:
       - fossa analyze --branch "$TRAVIS_BRANCH"
 
     - stage: compile
+      workspaces:
+        create:
+          name: compiled
       script: ./gradlew classes
 
     - stage: test
       name: "Unit tests"
+      workspaces:
+        use:
+          compiled
+        create:
+          name: tests
       script: ./gradlew test
     - name: "License check"
       script: fossa test
 
     - stage: build artifact
+      workspaces:
+        use: compiled
       script: ./gradlew bootJar
 
     - stage: report
       name: "Codecov"
+
+      workspaces:
+        use: tests
       script:
         - bash <(curl -s https://codecov.io/bash)

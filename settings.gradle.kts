@@ -13,7 +13,6 @@ pluginManagement {
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
 
     // quality
-    id("org.sonarqube") version "3.1.1"
     id("io.gitlab.arturbosch.detekt") version "1.16.0"
 
     // documentation
