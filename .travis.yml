@@ -31,15 +31,13 @@ jobs:
     - stage: check
       name: "Detekt"
       workspace:
-        use:
-          base
+        use: base
       git:
         clone: false
       script: ./gradlew detekt
     - name: "Fossa"
       workspace:
-        use:
-          base
+        use: base
       git:
         clone: false
       script:
@@ -51,8 +49,7 @@ jobs:
           name: compiled
           paths:
             - .
-        use:
-          base
+        use: base
       git:
         clone: false
       script: ./gradlew classes
@@ -60,8 +57,7 @@ jobs:
     - stage: test
       name: "Unit tests"
       workspaces:
-        use:
-          compiled
+        use: compiled
         create:
           name: tests
           paths:
@@ -71,8 +67,9 @@ jobs:
       script: ./gradlew test
     - name: "License check"
       workspaces:
-        use:
-          compiled
+        use: compiled
+      git:
+        clone: false
       script: fossa test
 
     - stage: build artifact
