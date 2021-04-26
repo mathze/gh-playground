@@ -26,6 +26,8 @@ jobs:
           name: base
           paths: .
       script:
+        - "echo $PWD"
+        - "ls -al"
         - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh > install.sh"
         - "sudo bash install.sh -b ."
     - stage: check
