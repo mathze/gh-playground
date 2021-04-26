@@ -34,14 +34,18 @@ jobs:
         use: base
       git:
         clone: false
-      script: ./gradlew detekt
+      script:
+        - "echo $PWD"
+        - "cd mathze/gh-playground"
+        - "./gradlew detekt"
     - name: "Fossa"
       workspaces:
         use: base
       git:
         clone: false
       script:
-      - fossa analyze --branch "$TRAVIS_BRANCH"
+        - "cd mathze/gh-playground"
+        - fossa analyze --branch "$TRAVIS_BRANCH"
 
     - stage: compile
       workspaces:
@@ -51,7 +55,9 @@ jobs:
         use: base
       git:
         clone: false
-      script: ./gradlew classes
+      script:
+        - "cd mathze/gh-playground"
+        - ./gradlew classes
 
     - stage: test
       name: "Unit tests"
@@ -62,20 +68,26 @@ jobs:
           paths: .
       git:
         clone: false
-      script: ./gradlew test
+      script:
+        - "cd mathze/gh-playground"
+        - ./gradlew test
     - name: "License check"
       workspaces:
         use: compiled
       git:
         clone: false
-      script: fossa test
+      script:
+        - "cd mathze/gh-playground"
+        - fossa test
 
     - stage: build artifact
       workspaces:
         use: compiled
       git:
         clone: false
-      script: ./gradlew bootJar
+      script:
+        - "cd mathze/gh-playground"
+        - ./gradlew bootJar
 
     - stage: report
       name: "Codecov"
@@ -84,5 +96,6 @@ jobs:
       git:
         clone: false
       script:
+        - "cd mathze/gh-playground"
         - ./gradlew jacocoTestReport
         - bash <(curl -s https://codecov.io/bash) -B "$TRAVIS_BRANCH"
