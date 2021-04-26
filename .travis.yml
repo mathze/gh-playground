@@ -20,7 +20,7 @@ cache:
 
 jobs:
   include:
-    - stage init
+    - stage: init
       workspace:
         create:
           name: base
