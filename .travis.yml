@@ -24,8 +24,7 @@ jobs:
       workspace:
         create:
           name: base
-          paths:
-            - ./**
+          paths: .
       script:
         - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh > install.sh"
         - "sudo bash install.sh -b ."
@@ -48,8 +47,7 @@ jobs:
       workspaces:
         create:
           name: compiled
-          paths:
-            - .
+          paths: .
         use: base
       git:
         clone: false
@@ -61,8 +59,7 @@ jobs:
         use: compiled
         create:
           name: tests
-          paths:
-            - .
+          paths: .
       git:
         clone: false
       script: ./gradlew test
