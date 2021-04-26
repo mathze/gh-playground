@@ -41,6 +41,7 @@ jobs:
   updateDevelop:
     name: "Reintegrate to develop"
     runs-on: ubuntu-latest
+    needs: release
     steps:
       - uses: actions/checkout@v2
         with:
@@ -55,8 +56,11 @@ jobs:
 
       - name: prepare merge
         run: |
-          git checkout develop
-          git merge main
+          git config user.name "${{ github.actor }} action"
+          git config user.email "noreply@github.com"
+          git fetch --all --recurse-submodules=no --progress --prune
+          git checkout -b develop origin/develop
+          git merge main --allow-unrelated-histories
 
       - name: Create next version
         run: ./gradlew updateVersion -PnewVersion=snapshot
