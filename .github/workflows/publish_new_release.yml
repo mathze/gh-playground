@@ -43,6 +43,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: main
 
       - name: Publish artifact
         env:
@@ -53,11 +55,8 @@ jobs:
 
       - name: prepare merge
         run: |
-          git config user.name "${{ github.actor }} action"
-          git config user.email "noreply@github.com"
-          git fetch --all
           git checkout develop
-          git merge origin/main
+          git merge main
 
       - name: Create next version
         run: ./gradlew updateVersion -PnewVersion=snapshot
