@@ -18,15 +18,30 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
-before_script:
-  - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash"
-
 jobs:
   include:
+    - stage init
+      workspace:
+        create:
+          name: base
+          paths:
+            - .
+      script:
+        - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash"
     - stage: check
       name: "Detekt"
+      workspace:
+        use:
+          base
+      git:
+        clone: false
       script: ./gradlew detekt
     - name: "Fossa"
+      workspace:
+        use:
+          base
+      git:
+        clone: false
       script:
       - fossa analyze --branch "$TRAVIS_BRANCH"
 
@@ -36,6 +51,10 @@ jobs:
           name: compiled
           paths:
             - .
+        use:
+          base
+      git:
+        clone: false
       script: ./gradlew classes
 
     - stage: test
@@ -47,6 +66,8 @@ jobs:
           name: tests
           paths:
             - .
+      git:
+        clone: false
       script: ./gradlew test
     - name: "License check"
       workspaces:
@@ -57,12 +78,16 @@ jobs:
     - stage: build artifact
       workspaces:
         use: compiled
+      git:
+        clone: false
       script: ./gradlew bootJar
 
     - stage: report
       name: "Codecov"
       workspaces:
         use: tests
+      git:
+        clone: false
       script:
         - ./gradlew jacocoTestReport
         - bash <(curl -s https://codecov.io/bash) -B "$TRAVIS_BRANCH"
