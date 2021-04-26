@@ -28,14 +28,15 @@ jobs:
       script:
         - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh > install.sh"
         - "sudo bash install.sh -b ."
+        - "echo $PWD"
+        - "echo ls -al"
     - stage: check
       name: "Detekt"
-      workspace:
+      workspaces:
         use: base
       git:
         clone: false
       script:
-        - "echo $PWD"
         - "cd mathze/gh-playground"
         - "./gradlew detekt"
     - name: "Fossa"
