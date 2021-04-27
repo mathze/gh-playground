@@ -3,7 +3,6 @@ language: java
 install: skip
 
 os: linux
-arch: arm64
 dist: focal
 jdk: openjdk11
 
