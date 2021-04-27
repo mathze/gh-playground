@@ -8,6 +8,7 @@ jdk: openjdk11
 
 git:
   quiet: true
+  clone: false
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -28,20 +29,18 @@ jobs:
       script:
         - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh > install.sh"
         - "sudo bash install.sh -b ."
+      git:
+        clone: true
     - stage: check
       name: "Detekt"
       workspaces:
         use: base
-      git:
-        clone: false
       script:
         - "cd mathze/gh-playground"
         - "./gradlew detekt"
     - name: "Fossa"
       workspaces:
         use: base
-      git:
-        clone: false
       script:
         - "cd mathze/gh-playground"
         - ./fossa analyze --branch "$TRAVIS_BRANCH"
@@ -52,8 +51,6 @@ jobs:
           name: compiled
           paths: .
         use: base
-      git:
-        clone: false
       script:
         - "cd mathze/gh-playground"
         - ./gradlew classes
@@ -65,16 +62,12 @@ jobs:
         create:
           name: tests
           paths: .
-      git:
-        clone: false
       script:
         - "cd mathze/gh-playground"
         - ./gradlew test
     - name: "License check"
       workspaces:
         use: compiled
-      git:
-        clone: false
       script:
         - "cd mathze/gh-playground"
         - ./fossa test
@@ -82,8 +75,6 @@ jobs:
     - stage: build artifact
       workspaces:
         use: compiled
-      git:
-        clone: false
       script:
         - "cd mathze/gh-playground"
         - ./gradlew bootJar
@@ -92,8 +83,6 @@ jobs:
       name: "Codecov"
       workspaces:
         use: tests
-      git:
-        clone: false
       script:
         - "cd mathze/gh-playground"
         - ./gradlew jacocoTestReport
