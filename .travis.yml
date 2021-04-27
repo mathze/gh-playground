@@ -36,13 +36,13 @@ jobs:
       workspaces:
         use: base
       script:
-        - "cd mathze/gh-playground"
-        - "./gradlew detekt"
+        - cd $TRAVIS_BUILD_DIR
+        - ./gradlew detekt
     - name: "Fossa"
       workspaces:
         use: base
       script:
-        - "cd mathze/gh-playground"
+        - cd $TRAVIS_BUILD_DIR
         - ./fossa analyze --branch "$TRAVIS_BRANCH"
 
     - stage: compile
@@ -52,7 +52,7 @@ jobs:
           paths: .
         use: base
       script:
-        - "cd mathze/gh-playground"
+        - cd $TRAVIS_BUILD_DIR
         - ./gradlew classes
 
     - stage: test
@@ -63,20 +63,20 @@ jobs:
           name: tests
           paths: .
       script:
-        - "cd mathze/gh-playground"
+        - cd $TRAVIS_BUILD_DIR
         - ./gradlew test
     - name: "License check"
       workspaces:
         use: compiled
       script:
-        - "cd mathze/gh-playground"
+        - cd $TRAVIS_BUILD_DIR
         - ./fossa test
 
     - stage: build artifact
       workspaces:
         use: compiled
       script:
-        - "cd mathze/gh-playground"
+        - cd $TRAVIS_BUILD_DIR
         - ./gradlew bootJar
 
     - stage: report
@@ -84,6 +84,6 @@ jobs:
       workspaces:
         use: tests
       script:
-        - "cd mathze/gh-playground"
+        - cd $TRAVIS_BUILD_DIR
         - ./gradlew jacocoTestReport
         - bash <(curl -s https://codecov.io/bash) -B "$TRAVIS_BRANCH"
