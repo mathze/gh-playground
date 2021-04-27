@@ -11,8 +11,12 @@ git:
   clone: false
 
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -f $HOME/.gradle/caches/jars-8/jars-8.lock
+  - rm -f $HOME/.gradle/caches/6.8.3/*/*.lock
+  - rm -f $HOME/.gradle/caches/modules-2/metadata-2.97/module-metadata.bin
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+  - rm -fr $HOME/.gradle/caches/journal-1/
 
 cache:
   directories:
