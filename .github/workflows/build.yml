@@ -30,10 +30,6 @@ jobs:
         with:
           path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-sources-${{ github.run_id }}
-      - name: "List dirs"
-        run: |
-          ls -al
-          cd ${{ github.workspace }} && ls -al
       - name: "get fossa"
         run: |
           curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh > install.sh
@@ -58,13 +54,11 @@ jobs:
         with:
           path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-sources-${{ github.run_id }}
-      - name: "List dirs"
-        run: |
-          ls -al
-          cd ${{ github.workspace }} && ls -al
       - name: "Detekt"
         run: ${{ github.workspace }}/gradlew detekt
       - name: "Fossa"
+        env:
+          FOSSA_API_KEY: ${{ secrets.FOSSA_API_KEY }}
         run: ${{ github.workspace }}/fossa analyze --branch ${{ needs.init.outputs.branch }}
 
   compile:
