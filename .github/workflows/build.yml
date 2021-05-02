@@ -57,9 +57,9 @@ jobs:
           path: ${{ github.workspace }}
           key: ${{ runner.os }}-sources
       - name: "Detekt"
-        run: ./gradlew detekt
+        run: ${{ github.workspace }}/gradlew detekt
       - name: "Fossa"
-        run: ./fossa analyze --branch ${{ needs.init.outputs.branch }}
+        run: ${{ github.workspace }}/fossa analyze --branch ${{ needs.init.outputs.branch }}
 
   compile:
     runs-on: ubuntu-latest
@@ -84,7 +84,7 @@ jobs:
           path: ${{ github.workspace }}
           key: ${{ runner.os }}-compile
       - name: "Compile"
-        run: ./gradlew classes
+        run: ${{ github.workspace }}/gradlew classes
 
   test:
     runs-on: ubuntu-latest
@@ -100,7 +100,7 @@ jobs:
           path: ${{ github.workspace }}
           key: ${{ runner.os }}-test
       - name: "Unit test"
-        run: ./gradlew test
+        run: ${{ github.workspace }}/gradlew test
 
   licence:
     runs-on: ubuntu-latest
@@ -112,7 +112,7 @@ jobs:
           path: ${{ github.workspace }}
           key: ${{ runner.os }}-compile
       - name: "Fossa check license"
-        run: ./fossa test
+        run: ${{ github.workspace }}/fossa test
 
   report:
     runs-on: ubuntu-latest
@@ -132,7 +132,7 @@ jobs:
           key: ${{ runner.os }}-funcTest
       - name: "Generate Report"
         run: |
-          ./gradlew jacocoTestReport
+          ${{ github.workspace }}/gradlew jacocoTestReport
           bash <(curl -s https://codecov.io/bash) -B ${{ needs.init.outputs.branch }}
 
   publish:
@@ -145,4 +145,4 @@ jobs:
           path: ${{ github.workspace }}
           key: ${{ runner.os }}-compile
       - name: "Publish"
-        run: ./gradlew bootJar publish
+        run: ${{ github.workspace }}/gradlew bootJar publish
