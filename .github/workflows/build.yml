@@ -40,7 +40,7 @@ jobs:
   staticChecks:
     name: "Static checks"
     runs-on: ubuntu-latest
-    needs: checkout
+    needs: init
     steps:
       - name: "Load build dependencies"
         uses: actions/cache@v2
@@ -59,11 +59,11 @@ jobs:
       - name: "Detekt"
         run: ./gradlew detekt
       - name: "Fossa"
-        run: ./fossa analyze --branch ${{ needs.checkout.outputs.branch }}
+        run: ./fossa analyze --branch ${{ needs.init.outputs.branch }}
 
   compile:
     runs-on: ubuntu-latest
-    needs: checkout
+    needs: init
     steps:
       - name: "Load build dependencies"
         uses: actions/cache@v2
@@ -117,7 +117,7 @@ jobs:
   report:
     runs-on: ubuntu-latest
     needs:
-      - checkout
+      - init
       - test
     steps:
       - name: "Load test cache"
@@ -133,7 +133,7 @@ jobs:
       - name: "Generate Report"
         run: |
           ./gradlew jacocoTestReport
-          bash <(curl -s https://codecov.io/bash) -B ${{ needs.checkout.outputs.branch }}
+          bash <(curl -s https://codecov.io/bash) -B ${{ needs.init.outputs.branch }}
 
   publish:
     runs-on: ubuntu-latest
