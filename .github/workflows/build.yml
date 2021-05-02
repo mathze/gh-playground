@@ -21,14 +21,14 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
+            ~/.gradle/caches/**
+            ~/.gradle/wrapper/**
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
       - uses: actions/cache@v2
         with:
-          path: ${{ github.workspace }}
+          path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-sources-${{ github.run_id }}
       - name: "List dirs"
         run: |
@@ -48,15 +48,15 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
+            ~/.gradle/caches/**
+            ~/.gradle/wrapper/**
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: "Load sources"
         uses: actions/cache@v2
         with:
-          path: ${{ github.workspace }}
+          path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-sources-${{ github.run_id }}
       - name: "List dirs"
         run: |
@@ -75,19 +75,19 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
+            ~/.gradle/caches/**
+            ~/.gradle/wrapper/**
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: "Load sources"
         uses: actions/cache@v2
         with:
-          path: ${{ github.workspace }}
+          path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-sources-${{ github.run_id }}
       - uses: actions/cache@v2
         with:
-          path: ${{ github.workspace }}
+          path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-compile-${{ github.run_id }}
       - name: "Compile"
         run: ${{ github.workspace }}/gradlew classes
@@ -100,19 +100,19 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
+            ~/.gradle/caches/**
+            ~/.gradle/wrapper/**
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: "Load compile cache"
         uses: actions/cache@v2
         with:
-          path: ${{ github.workspace }}
+          path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-compile-${{ github.run_id }}
       - uses: actions/cache@v2
         with:
-          path: ${{ github.workspace }}
+          path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-test-${{ github.run_id }}
       - name: "Unit test"
         run: ${{ github.workspace }}/gradlew test
@@ -125,15 +125,15 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
+            ~/.gradle/caches/**
+            ~/.gradle/wrapper/**
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: "Load compile cache"
         uses: actions/cache@v2
         with:
-          path: ${{ github.workspace }}
+          path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-compile-${{ github.run_id }}
       - name: "Fossa check license"
         run: ${{ github.workspace }}/fossa test
@@ -148,15 +148,15 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
+            ~/.gradle/caches/**
+            ~/.gradle/wrapper/**
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: "Load test cache"
         uses: actions/cache@v2
         with:
-          path: ${{ github.workspace }}
+          path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-test-${{ github.run_id }}
       - name: "Generate Report"
         run: |
@@ -171,15 +171,15 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
+            ~/.gradle/caches/**
+            ~/.gradle/wrapper/**
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: "Load compile cache"
         uses: actions/cache@v2
         with:
-          path: ${{ github.workspace }}
+          path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-compile-${{ github.run_id }}
       - name: "Publish"
         run: ${{ github.workspace }}/gradlew bootJar publish
