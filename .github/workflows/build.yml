@@ -180,4 +180,5 @@ jobs:
       - name: "Publish"
         env:
           USERNAME: ${{ github.actor }}
+          TOKEN: ${{ github.token }}
         run: ${{ github.workspace }}/gradlew bootJar publish
