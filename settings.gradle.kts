@@ -20,4 +20,5 @@ pluginManagement {
     id("org.asciidoctor.jvm.convert") version "3.3.2"
   }
 }
+
 rootProject.name = "gh-playground"

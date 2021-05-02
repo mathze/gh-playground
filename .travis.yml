@@ -22,6 +22,7 @@ jobs:
         - "sudo bash install.sh -b ."
       git:
         clone: true
+
     - stage: check
       name: "Detekt"
       workspaces:
@@ -63,13 +64,6 @@ jobs:
         - cd $TRAVIS_BUILD_DIR
         - ./fossa test
 
-    - stage: build artifact
-      workspaces:
-        use: compiled
-      script:
-        - cd $TRAVIS_BUILD_DIR
-        - ./gradlew bootJar
-
     - stage: report
       name: "Codecov"
       workspaces:
@@ -78,3 +72,10 @@ jobs:
         - cd $TRAVIS_BUILD_DIR
         - ./gradlew jacocoTestReport
         - bash <(curl -s https://codecov.io/bash) -B "$TRAVIS_BRANCH"
+
+    - stage: build & publish artifact
+      workspaces:
+        use: compiled
+      script:
+        - cd $TRAVIS_BUILD_DIR
+        - ./gradlew bootJar publish

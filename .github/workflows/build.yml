@@ -1,0 +1,148 @@
+name: "Build the project"
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  init:
+    name: "Init"
+    runs-on: ubuntu-latest
+    outputs:
+      branch: ${{ steps.extract_branch.outputs.branch }}
+    steps:
+      - uses: actions/checkout@v2
+        id: checkout
+      - name: Extract branch name
+        id: extract_branch
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ runner.os }}-sources
+
+      - name: get fossa
+        run: |
+          curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh > install.sh
+          sudo bash install.sh -b .
+
+  staticChecks:
+    name: "Static checks"
+    runs-on: ubuntu-latest
+    needs: checkout
+    steps:
+      - name: "Load build dependencies"
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: "Load sources"
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ runner.os }}-sources
+      - name: "Detekt"
+        run: ./gradlew detekt
+      - name: "Fossa"
+        run: ./fossa analyze --branch ${{ needs.checkout.outputs.branch }}
+
+  compile:
+    runs-on: ubuntu-latest
+    needs: checkout
+    steps:
+      - name: "Load build dependencies"
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: "Load sources"
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ runner.os }}-sources
+      - uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ runner.os }}-compile
+      - name: "Compile"
+        run: ./gradlew classes
+
+  test:
+    runs-on: ubuntu-latest
+    needs: compile
+    steps:
+      - name: "Load compile cache"
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ runner.os }}-compile
+      - uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ runner.os }}-test
+      - name: "Unit test"
+        run: ./gradlew test
+
+  licence:
+    runs-on: ubuntu-latest
+    needs: compile
+    steps:
+      - name: "Load compile cache"
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ runner.os }}-compile
+      - name: "Fossa check license"
+        run: ./fossa test
+
+  report:
+    runs-on: ubuntu-latest
+    needs:
+      - checkout
+      - test
+    steps:
+      - name: "Load test cache"
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ runner.os }}-test
+      - name: "Load functional test cache"
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ runner.os }}-funcTest
+      - name: "Generate Report"
+        run: |
+          ./gradlew jacocoTestReport
+          bash <(curl -s https://codecov.io/bash) -B ${{ needs.checkout.outputs.branch }}
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: compile
+    steps:
+      - name: "Load compile cache"
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ runner.os }}-compile
+      - name: "Publish"
+        run: ./gradlew bootJar publish
