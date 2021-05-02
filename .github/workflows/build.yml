@@ -130,6 +130,8 @@ jobs:
           path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-compile-${{ github.run_id }}
       - name: "Fossa check license"
+        env:
+          FOSSA_API_KEY: ${{ secrets.FOSSA_API_KEY }}
         run: ${{ github.workspace }}/fossa test
 
   report:
@@ -176,4 +178,6 @@ jobs:
           path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-compile-${{ github.run_id }}
       - name: "Publish"
+        env:
+          USERNAME: ${{ github.actor }}
         run: ${{ github.workspace }}/gradlew bootJar publish
