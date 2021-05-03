@@ -23,8 +23,8 @@ jobs:
         with:
           path: |
             ~/.gradle/wrapper/dists/**
-            ~/.gradle/caches/modules-2/**
-          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties', 'gradle/**') }}
+            ~/.gradle/caches/**
+          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties') }}
           restore-keys: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-
       - name: "Workspace cache"
         uses: actions/cache@v2
@@ -53,8 +53,8 @@ jobs:
         with:
           path: |
             ~/.gradle/wrapper/dists/**
-            ~/.gradle/caches/modules-2/**
-          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties', 'gradle/**') }}
+            ~/.gradle/caches/**
+          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties') }}
           restore-keys: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-
       - name: "Detekt"
         run: ${{ github.workspace }}/gradlew detekt
@@ -77,8 +77,8 @@ jobs:
         with:
           path: |
             ~/.gradle/wrapper/dists/**
-            ~/.gradle/caches/modules-2/**
-          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties', 'gradle/**') }}
+            ~/.gradle/caches/**
+          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties') }}
           restore-keys: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-
       - uses: actions/cache@v2
         with:
@@ -101,8 +101,8 @@ jobs:
         with:
           path: |
             ~/.gradle/wrapper/dists/**
-            ~/.gradle/caches/modules-2/**
-          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties', 'gradle/**') }}
+            ~/.gradle/caches/**
+          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties') }}
           restore-keys: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-
       - uses: actions/cache@v2
         with:
@@ -141,8 +141,8 @@ jobs:
         with:
           path: |
             ~/.gradle/wrapper/dists/**
-            ~/.gradle/caches/modules-2/**
-          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties', 'gradle/**') }}
+            ~/.gradle/caches/**
+          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties') }}
           restore-keys: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-
       - name: "Generate Report"
         run: |
@@ -163,8 +163,8 @@ jobs:
         with:
           path: |
             ~/.gradle/wrapper/dists/**
-            ~/.gradle/caches/modules-2/**
-          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties', 'gradle/**') }}
+            ~/.gradle/caches/**
+          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties') }}
           restore-keys: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-
       - name: "Publish"
         env:
