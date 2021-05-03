@@ -18,14 +18,16 @@ jobs:
       - name: Extract branch name
         id: extract_branch
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-      - uses: actions/cache@v2
+      - name: "Gradle cache"
+        uses: actions/cache@v2
         with:
           path: |
             ~/.gradle/wrapper/dists/**
             ~/.gradle/caches/modules-2/**
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties', 'gradle/**') }}
-          restore-keys: ${{ runner.os }}-gradle-
-      - uses: actions/cache@v2
+          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties', 'gradle/**') }}
+          restore-keys: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-
+      - name: "Workspace cache"
+        uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-sources-${{ github.run_id }}
@@ -46,14 +48,14 @@ jobs:
         with:
           path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-sources-${{ github.run_id }}
-      - name: "Load build dependencies"
+      - name: "Load gradle cache"
         uses: actions/cache@v2
         with:
           path: |
             ~/.gradle/wrapper/dists/**
             ~/.gradle/caches/modules-2/**
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties', 'gradle/**') }}
-          restore-keys: ${{ runner.os }}-gradle-
+          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties', 'gradle/**') }}
+          restore-keys: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-
       - name: "Detekt"
         run: ${{ github.workspace }}/gradlew detekt
       - name: "Fossa analyze"
@@ -70,14 +72,14 @@ jobs:
         with:
           path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-sources-${{ github.run_id }}
-      - name: "Load build dependencies"
+      - name: "Load gradle cache"
         uses: actions/cache@v2
         with:
           path: |
             ~/.gradle/wrapper/dists/**
             ~/.gradle/caches/modules-2/**
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties', 'gradle/**') }}
-          restore-keys: ${{ runner.os }}-gradle-
+          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties', 'gradle/**') }}
+          restore-keys: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-
       - uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}/**
@@ -94,14 +96,14 @@ jobs:
         with:
           path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-compile-${{ github.run_id }}
-      - name: "Load build dependencies"
+      - name: "Load gradle cache"
         uses: actions/cache@v2
         with:
           path: |
             ~/.gradle/wrapper/dists/**
             ~/.gradle/caches/modules-2/**
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties', 'gradle/**') }}
-          restore-keys: ${{ runner.os }}-gradle-
+          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties', 'gradle/**') }}
+          restore-keys: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-
       - uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}/**
@@ -134,14 +136,14 @@ jobs:
         with:
           path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-test-${{ github.run_id }}
-      - name: "Load build dependencies"
+      - name: "Load gradle cache"
         uses: actions/cache@v2
         with:
           path: |
             ~/.gradle/wrapper/dists/**
             ~/.gradle/caches/modules-2/**
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties', 'gradle/**') }}
-          restore-keys: ${{ runner.os }}-gradle-
+          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties', 'gradle/**') }}
+          restore-keys: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-
       - name: "Generate Report"
         run: |
           ${{ github.workspace }}/gradlew jacocoTestReport
@@ -156,14 +158,14 @@ jobs:
         with:
           path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-compile-${{ github.run_id }}
-      - name: "Load build dependencies"
+      - name: "Load gradle cache"
         uses: actions/cache@v2
         with:
           path: |
             ~/.gradle/wrapper/dists/**
             ~/.gradle/caches/modules-2/**
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties', 'gradle/**') }}
-          restore-keys: ${{ runner.os }}-gradle-
+          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties', 'gradle/**') }}
+          restore-keys: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-
       - name: "Publish"
         env:
           USERNAME: ${{ github.actor }}
