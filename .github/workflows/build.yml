@@ -19,6 +19,7 @@ jobs:
         id: extract_branch
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       - name: "Gradle cache"
+        id: gradle-cache
         uses: actions/cache@v2
         with:
           path: |
@@ -35,6 +36,7 @@ jobs:
           curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh > install.sh
           sudo bash install.sh -b .
       - name: init gradle
+        if: steps.gradle-cache.outputs.cache-hit != 'true'
         run: ./gradlew
 
   staticDetektCheck:
