@@ -14,9 +14,8 @@ image:https://app.fossa.com/api/projects/custom%2B17788%2Fgh-playground.svg?type
 image:https://www.codefactor.io/repository/github/mathze/gh-playground/badge/main[link="https://www.codefactor.io/repository/github/mathze/gh-playground/overview/main"]
 image:https://codecov.io/gh/mathze/gh-playground/branch/main/graph/badge.svg?token=iiLfPV4Vnn[link="https://app.codecov.io/gh/mathze/gh-playground/branch/main"]
 
-
 |Develop
-|image:https://travis-ci.com/mathze/gh-playground.svg?branch=develop["Build Status", link="https://travis-ci.com/mathze/gh-playground"]
+|image:https://github.com/mathze/gh-playground/actions/workflows/build.yml/badge.svg?branch=develop[link=https://github.com/mathze/gh-playground/blob/develop/.github/workflows/build.yml]
 image:https://www.codefactor.io/repository/github/mathze/gh-playground/badge/develop[link="https://www.codefactor.io/repository/github/mathze/gh-playground/overview/develop"]
 image:https://codecov.io/gh/mathze/gh-playground/branch/develop/graph/badge.svg?token=iiLfPV4Vnn[link="https://app.codecov.io/gh/mathze/gh-playground/branch/develop"]
 |===
