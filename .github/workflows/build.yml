@@ -116,7 +116,7 @@ jobs:
           path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-test-${{ github.run_id }}
       - name: "Unit test"
-        run: ${{ github.workspace }}/gradlew test
+        run: ${{ github.workspace }}/gradlew test jacocoTestReport
 
   licenceCheck:
     runs-on: ubuntu-latest
@@ -142,17 +142,8 @@ jobs:
         with:
           path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-test-${{ github.run_id }}
-      - name: "Load gradle cache"
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle/wrapper/dists/**
-          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('./*.gradle', './*.gradle.kts', '**/gradle.properties') }}
-          restore-keys: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-
       - name: "Generate Report"
-        run: |
-          ${{ github.workspace }}/gradlew jacocoTestReport
-          bash <(curl -s https://codecov.io/bash) -B ${{ needs.init.outputs.branch }}
+        run: bash <(curl -s https://codecov.io/bash) -B ${{ needs.init.outputs.branch }}
 
   publish:
     runs-on: ubuntu-latest
