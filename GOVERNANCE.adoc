@@ -11,11 +11,11 @@ means.
 the project by any means (issue triage, support, documentation, code, etc.).
 Core contributors are recognizable via GitHub's "Member" badge.
 * BDFL: a single individual who makes decisions when consensus cannot be
-reached. i3’s current BDFL is https://github.com/mathze[@mathze].
+reached. Robotframework-gradle-plugins’s current BDFL is https://github.com/mathze[@mathze].
 
 == Decision-making process
 In general, we try to reach consensus in discussions. In case consensus cannot
 be reached, the BDFL makes a decision.
 
 == Contribution process
-The contribution process is described in a separate document called file://./CONTRIBUTING.adoc[CONTRIBUTING].
+The contribution process is described in a separate document called link:CONTRIBUTING.adoc[CONTRIBUTING].
