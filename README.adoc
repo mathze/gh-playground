@@ -10,12 +10,12 @@ just a playground for gh-actions, integration and templates stuff, nothing world
 image:https://app.fossa.com/api/projects/custom%2B17788%2Fgh-playground.svg?type=shield[link="https://app.fossa.com/projects/custom%2B17788%2Fgh-playground/branch/develop?ref=badge_shield"]
 
 |Main
-|image:https://travis-ci.com/mathze/gh-playground.svg?branch=main["Build Status", link="https://travis-ci.com/mathze/gh-playground"]
-image:https://www.codefactor.io/repository/github/mathze/gh-playground/badge/main[link="https://www.codefactor.io/repository/github/mathze/gh-playground/overview/main"]
-image:https://codecov.io/gh/mathze/gh-playground/branch/main/graph/badge.svg?token=iiLfPV4Vnn[link="https://app.codecov.io/gh/mathze/gh-playground/branch/main"]
+|image:https://github.com/mathze/gh-playground/actions/workflows/build.yml/badge.svg?branch=main[title="Build Status", link=https://github.com/mathze/gh-playground/blob/main/.github/workflows/build.yml]
+image:https://www.codefactor.io/repository/github/mathze/gh-playground/badge/main[title="Code quality", link="https://www.codefactor.io/repository/github/mathze/gh-playground/overview/main"]
+image:https://codecov.io/gh/mathze/gh-playground/branch/main/graph/badge.svg?token=iiLfPV4Vnn[title="Coverage", link="https://app.codecov.io/gh/mathze/gh-playground/branch/main"]
 
 |Develop
-|image:https://github.com/mathze/gh-playground/actions/workflows/build.yml/badge.svg?branch=develop[link=https://github.com/mathze/gh-playground/blob/develop/.github/workflows/build.yml]
-image:https://www.codefactor.io/repository/github/mathze/gh-playground/badge/develop[link="https://www.codefactor.io/repository/github/mathze/gh-playground/overview/develop"]
-image:https://codecov.io/gh/mathze/gh-playground/branch/develop/graph/badge.svg?token=iiLfPV4Vnn[link="https://app.codecov.io/gh/mathze/gh-playground/branch/develop"]
+|image:https://github.com/mathze/gh-playground/actions/workflows/build.yml/badge.svg?branch=develop[title="Build Status", link=https://github.com/mathze/gh-playground/blob/develop/.github/workflows/build.yml]
+image:https://www.codefactor.io/repository/github/mathze/gh-playground/badge/develop[title="Code quality", link="https://www.codefactor.io/repository/github/mathze/gh-playground/overview/develop"]
+image:https://codecov.io/gh/mathze/gh-playground/branch/develop/graph/badge.svg?token=iiLfPV4Vnn[title="Coverage", link="https://app.codecov.io/gh/mathze/gh-playground/branch/develop"]
 |===
