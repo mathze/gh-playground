@@ -1,0 +1,7 @@
+= Security Policy
+
+== Supported Versions
+Because this is just a playground, only latest version will receive security updates.
+
+== Reporting a Vulnerability
+You can file a security vulnerability https://github.com/mathze/gh-playground/security/advisories/new[here]
