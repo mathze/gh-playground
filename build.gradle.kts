@@ -28,7 +28,7 @@ dependencyManagement {
     mavenBom("org.junit:junit-bom:5.7.2")
   }
   dependencies {
-    dependency("org.springframework.boot:spring-boot-starter-web:2.5.0") {
+    dependency("org.springframework.boot:spring-boot-starter-web:2.5.1") {
       exclude("org.springframework.boot:spring-boot-starter-tomcat")
     }
   }
