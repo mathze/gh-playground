@@ -15,8 +15,8 @@ jobs:
         run: |
           echo "event_name: '${{ github.event_name }}'"
           echo "workspace: '${{ github.workspace }}'"
-          echo "event.pull_request.head.ref: '${{ github.event.pull_request.head.ref }}'"
-          echo "event.push.ref: '${{ github.event.push.ref }}'"
+          echo "event.pull_request.head.ref: '${{ github.event.head.ref }}'"
+          echo "event.push.ref: '${{ github.event.ref }}'"
   init:
     name: "Init"
     runs-on: ubuntu-latest
