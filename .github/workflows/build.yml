@@ -5,8 +5,28 @@ on:
     branches:
       - main
       - develop
+      - issues/**
 
 jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Print github data"
+        run: |
+          echo "event_name: '${{ github.event_name }}'"
+          echo "workspace: '${{ github.workspace }}'"
+          echo "(pull_request) event.head.ref: '${{ github.event.head.ref }}'"
+          echo "(push) event.ref: '${{ github.event.ref }}'"
+
+  onlyDevel:
+    runs-on: ubuntu-latest
+    if: |
+      contains(github.event.ref, 'develop') &&
+      github.event_name == 'push'
+    steps:
+      - name: "Print"
+        run: echo "Exec on develop bransh on push"
+
   init:
     name: "Init"
     runs-on: ubuntu-latest
