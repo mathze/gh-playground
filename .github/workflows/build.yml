@@ -17,6 +17,16 @@ jobs:
           echo "workspace: '${{ github.workspace }}'"
           echo "(pull_request) event.head.ref: '${{ github.event.head.ref }}'"
           echo "(push) event.ref: '${{ github.event.ref }}'"
+
+  onlyDevel:
+    runs-on: ubuntu-latest
+    if: |
+      contains(githib.event.ref, 'develop') &&
+      github.event_name == 'push'
+    steps:
+      - name: "Print"
+        run: echo "Exec on develop bransh on push"
+
   init:
     name: "Init"
     runs-on: ubuntu-latest
