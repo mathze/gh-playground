@@ -21,7 +21,7 @@ jobs:
   onlyDevel:
     runs-on: ubuntu-latest
     if: |
-      contains(githib.event.ref, 'develop') &&
+      contains(github.event.ref, 'develop') &&
       github.event_name == 'push'
     steps:
       - name: "Print"
