@@ -26,7 +26,7 @@ jobs:
   runTests:
     name: Run the tests
     runs-on: ubuntu-latest
-    needs: perpareInputs
+    needs: prepareInputs
     steps:
       - uses: actions/checkout@v2
 
