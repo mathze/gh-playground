@@ -155,7 +155,9 @@ jobs:
 
   licenceCheck:
     runs-on: ubuntu-latest
-    needs: compile
+    needs:
+      - compile
+      - staticFossaCheck
     steps:
       - name: "Load sources"
         uses: actions/cache@v2

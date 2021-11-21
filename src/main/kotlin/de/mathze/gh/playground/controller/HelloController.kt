@@ -3,6 +3,7 @@ package de.mathze.gh.playground.controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import java.util.Locale
 
 @RestController
 class HelloController {
@@ -13,7 +14,15 @@ class HelloController {
         if (name.isNullOrBlank()) {
           "who ever"
         } else {
-          name.toLowerCase().split(Regex("\\s+")).joinToString(" ") { it.capitalize() }
+          normalizeName(name)
         }
   }
+
+  private fun normalizeName(name: String) = name.lowercase()
+    .split(Regex("\\s+"))
+    .joinToString(" ") {
+      it.replaceFirstChar { frstChar ->
+        frstChar.titlecase(Locale.getDefault())
+      }
+    }
 }
