@@ -18,7 +18,6 @@ plugins {
 
 repositories {
   mavenCentral()
-  jcenter()
 }
 
 group = "de.qualersoft"
@@ -45,19 +44,21 @@ dependencies {
 }
 
 configure<io.gitlab.arturbosch.detekt.extensions.DetektExtension> {
-  failFast = true
+  allRules = true
   config = files("$rootDir/detekt.yml")
-  input = files("src/main/kotlin")
-
-  reports {
-    html.enabled = true
-    xml.enabled = true
-    txt.enabled = false
-  }
+  source = files("src/main/kotlin")
 }
 
 jacoco {
   toolVersion = "0.8.6"
+}
+
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach { 
+  reports {
+    html.required.set(true)
+    xml.required.set(true)
+    txt.required.set(false)
+  }
 }
 
 tasks.test {
@@ -83,7 +84,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
   kotlinOptions {
     freeCompilerArgs = listOf("-Xjsr305=strict")
     jvmTarget = JavaVersion.VERSION_11.toString()
-    useIR = true
+//    useIR = true
   }
 }
 

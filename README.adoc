@@ -22,5 +22,5 @@ image:https://codecov.io/gh/mathze/gh-playground/branch/develop/graph/badge.svg?
 
 
 == License
-The code in this project is released under the link:
+The code in this project is released under the link: +
 image:https://app.fossa.com/api/projects/custom%2B17788%2Fgh-playground.svg?type=large[title="License insights", link="https://app.fossa.com/projects/custom%2B17788%2Fgh-playground/"]
