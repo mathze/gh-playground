@@ -57,6 +57,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: Unit-Test-Results
+          path: build/test-results
 
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1
