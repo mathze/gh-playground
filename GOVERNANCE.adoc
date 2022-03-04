@@ -1,17 +1,17 @@
-= robotframework-gradle-plugin project governance
+= gh-playground project governance
 
 == Overview
-The *robotframework-gradle-plugin* project uses a governance model commonly described as Benevolent
+The *gh-playground* project uses a governance model commonly described as Benevolent
 Dictator For Life (BDFL). This document outlines our understanding of what this
 means.
 
 == Roles
-* user: anyone who interacts with the *robotframework-gradle-plugin* project
+* user: anyone who interacts with the *gh-playground* project
 * core contributor: a handful of people who have contributed significantly to
 the project by any means (issue triage, support, documentation, code, etc.).
 Core contributors are recognizable via GitHub's "Member" badge.
 * BDFL: a single individual who makes decisions when consensus cannot be
-reached. Robotframework-gradle-plugins’s current BDFL is https://github.com/mathze[@mathze].
+reached. _gh-playground_’s current BDFL is https://github.com/mathze[@mathze].
 
 == Decision-making process
 In general, we try to reach consensus in discussions. In case consensus cannot

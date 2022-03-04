@@ -1,4 +1,4 @@
-= Contributing to robotframework-gradle-plugin
+= Contributing to gh-playground
 :toc:
 
 👍🎉 First off, thanks for taking the time to contributing 🎉👍
