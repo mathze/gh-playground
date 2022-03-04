@@ -1,0 +1,12 @@
+on:
+  workflow_dispatch:
+
+name: A workflow in a subfolder
+
+jobs:
+  prepareInputs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say hello
+        run: |
+          echo "Hello from workflow in subfolder"
