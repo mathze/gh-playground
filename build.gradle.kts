@@ -27,7 +27,7 @@ dependencyManagement {
     mavenBom("org.junit:junit-bom:5.8.2")
   }
   dependencies {
-    dependency("org.springframework.boot:spring-boot-starter-web:2.6.4") {
+    dependency("org.springframework.boot:spring-boot-starter-web:2.6.7") {
       exclude("org.springframework.boot:spring-boot-starter-tomcat")
     }
   }
@@ -53,7 +53,7 @@ jacoco {
   toolVersion = "0.8.7"
 }
 
-tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach { 
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
   reports {
     html.required.set(true)
     xml.required.set(true)
@@ -70,9 +70,9 @@ tasks.test {
 
 tasks.withType<JacocoReport> {
   reports {
-    xml.isEnabled = true
-    html.isEnabled = true
-    csv.isEnabled = false
+    xml.required.set(true)
+    html.required.set(true)
+    csv.required.set(false)
   }
 }
 
@@ -83,7 +83,7 @@ tasks.named<org.jetbrains.dokka.gradle.DokkaTask>("dokkaHtml") {
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
   kotlinOptions {
     freeCompilerArgs = listOf("-Xjsr305=strict")
-    jvmTarget = JavaVersion.VERSION_11.toString()
+    jvmTarget = JavaVersion.VERSION_17.toString()
 //    useIR = true
   }
 }
