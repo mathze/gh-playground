@@ -33,55 +33,43 @@ jobs:
     outputs:
       branch: ${{ steps.extract_branch.outputs.branch }}
     steps:
-      - uses: actions/checkout@v2
-        id: checkout
+      - uses: actions/checkout@v3
 
       - name: Extract branch name
         id: extract_branch
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
 
-      - name: "Gradle cache"
-        id: gradle-cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle/wrapper/dists/**
-          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('./*.gradle', './*.gradle.kts', './gradle.properties') }}
-          restore-keys: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-
-
-      - name: "Workspace cache"
-        uses: actions/cache@v2
+      - name: "Fossa cache"
+        uses: actions/cache@v3
         with:
           path: ${{ github.workspace }}/**
-          key: ${{ runner.os }}-sources-${{ github.run_id }}
+          key: ${{ runner.os }}-fossa-${{ github.run_id }}
 
       - name: "get fossa"
         run: |
           curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh > install.sh
           sudo bash install.sh -b .
 
-      - name: init gradle
-        if: steps.gradle-cache.outputs.cache-hit != 'true'
-        run: ./gradlew
-
   staticDetektCheck:
     name: "Detekt - static check"
     runs-on: ubuntu-latest
     needs: init
     steps:
-      - name: "Load sources"
-        uses: actions/cache@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
         with:
-          path: ${{ github.workspace }}/**
-          key: ${{ runner.os }}-sources-${{ github.run_id }}
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
 
-      - name: "Load gradle cache"
-        uses: actions/cache@v2
+      - name: "Reports cache"
+        uses: actions/cache@v3
         with:
           path: |
-            ~/.gradle/wrapper/dists/**
-          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('./*.gradle', './*.gradle.kts', './gradle.properties') }}
-          restore-keys: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-
+            ${{ github.workspace }}/build/test-results/**
+            ${{ github.workspace }}/build/jacoco/**
+            ${{ github.workspace }}/build/reports/**
+          key: ${{ runner.os }}-reports-${{ github.run_id }}
 
       - name: "Detekt"
         run: ${{ github.workspace }}/gradlew detekt
@@ -91,11 +79,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: init
     steps:
-      - name: "Load sources"
-        uses: actions/cache@v2
+      - name: "Fossa cache"
+        uses: actions/cache@v3
         with:
           path: ${{ github.workspace }}/**
-          key: ${{ runner.os }}-sources-${{ github.run_id }}
+          key: ${{ runner.os }}-fossa-${{ github.run_id }}
 
       - name: "Fossa analyze"
         env:
@@ -106,23 +94,19 @@ jobs:
     runs-on: ubuntu-latest
     needs: init
     steps:
-      - name: "Load sources"
-        uses: actions/cache@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
         with:
-          path: ${{ github.workspace }}/**
-          key: ${{ runner.os }}-sources-${{ github.run_id }}
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '17'
+          cache: 'gradle'
 
-      - name: "Load gradle cache"
-        uses: actions/cache@v2
+      - name: "Load compile cache"
+        uses: actions/cache@v3
         with:
           path: |
-            ~/.gradle/wrapper/dists/**
-          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('./*.gradle', './*.gradle.kts', './gradle.properties') }}
-          restore-keys: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-
-
-      - uses: actions/cache@v2
-        with:
-          path: ${{ github.workspace }}/**
+            ${{ github.workspace }}/build/classes/**
+            ${{ github.workspace }}/build/kotlin/**
           key: ${{ runner.os }}-compile-${{ github.run_id }}
 
       - name: "Compile"
@@ -132,24 +116,29 @@ jobs:
     runs-on: ubuntu-latest
     needs: compile
     steps:
-      - name: "Load compile cache"
-        uses: actions/cache@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
         with:
-          path: ${{ github.workspace }}/**
-          key: ${{ runner.os }}-compile-${{ github.run_id }}
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '17'
+          cache: 'gradle'
 
-      - name: "Load gradle cache"
-        uses: actions/cache@v2
+      - name: "Load compile cache"
+        uses: actions/cache@v3
         with:
           path: |
-            ~/.gradle/wrapper/dists/**
-          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('./*.gradle', './*.gradle.kts', './gradle.properties') }}
-          restore-keys: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-
+            ${{ github.workspace }}/build/classes/**
+            ${{ github.workspace }}/build/kotlin/**
+          key: ${{ runner.os }}-compile-${{ github.run_id }}
 
-      - uses: actions/cache@v2
+      - name: "Reports cache"
+        uses: actions/cache@v3
         with:
-          path: ${{ github.workspace }}/**
-          key: ${{ runner.os }}-test-${{ github.run_id }}
+          path: |
+            ${{ github.workspace }}/build/test-results/**
+            ${{ github.workspace }}/build/jacoco/**
+            ${{ github.workspace }}/build/reports/**
+          key: ${{ runner.os }}-reports-${{ github.run_id }}
 
       - name: "Unit test"
         run: ${{ github.workspace }}/gradlew test jacocoTestReport
@@ -166,11 +155,11 @@ jobs:
       - compile
       - staticFossaCheck
     steps:
-      - name: "Load sources"
-        uses: actions/cache@v2
+      - name: "Fossa cache"
+        uses: actions/cache@v3
         with:
           path: ${{ github.workspace }}/**
-          key: ${{ runner.os }}-sources-${{ github.run_id }}
+          key: ${{ runner.os }}-fossa-${{ github.run_id }}
 
       - name: "Fossa check license"
         env:
@@ -183,11 +172,14 @@ jobs:
     needs:
       - test
     steps:
-      - name: "Load test cache"
-        uses: actions/cache@v2
+      - name: "Reports cache"
+        uses: actions/cache@v3
         with:
-          path: ${{ github.workspace }}/**
-          key: ${{ runner.os }}-test-${{ github.run_id }}
+          path: |
+            ${{ github.workspace }}/build/test-results/**
+            ${{ github.workspace }}/build/jacoco/**
+            ${{ github.workspace }}/build/reports/**
+          key: ${{ runner.os }}-reports-${{ github.run_id }}
 
       - name: "Generate Report"
         uses: codecov/codecov-action@v2
@@ -198,19 +190,19 @@ jobs:
       - report
       - licenceCheck
     steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '17'
+          cache: 'gradle'
+
       - name: "Load compile cache"
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-compile-${{ github.run_id }}
-
-      - name: "Load gradle cache"
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle/wrapper/dists/**
-          key: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-${{ hashFiles('./*.gradle', './*.gradle.kts', './gradle.properties') }}
-          restore-keys: ${{ runner.os }}-gradle-${{ secrets.GRADLE_CACHE_VERSION }}-
 
       - name: "Publish"
         env:
