@@ -138,7 +138,7 @@ tasks.register("updateVersion") {
 }
 
 fun getGradlePropsFile(): File {
-  val propsFile = files("./gradle.properties").singleFile
+  val propsFile = file("./gradle.properties")
   if (!propsFile.exists()) {
     val msg = "This task requires version to be stored in gradle.properties file, which does not exist!"
     throw UnsupportedOperationException(msg)
