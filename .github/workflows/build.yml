@@ -182,7 +182,7 @@ jobs:
           key: ${{ runner.os }}-reports-${{ github.run_id }}
 
       - name: "Generate Report"
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
 
   publish:
     runs-on: ubuntu-latest
