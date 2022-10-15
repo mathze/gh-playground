@@ -144,10 +144,10 @@ jobs:
         run: ${{ github.workspace }}/gradlew test jacocoTestReport
 
       - name: Report test results
-        uses: EnricoMi/publish-unit-test-result-action@v2.0.0
+        uses: EnricoMi/publish-unit-test-result-action@v2.1.0
         if: always()
         with:
-          files: ${{ github.workspace }}/build/test-results/**/*.xml
+          junit_files: ${{ github.workspace }}/build/test-results/**/*.xml
 
   licenceCheck:
     runs-on: ubuntu-latest
