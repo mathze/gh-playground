@@ -10,7 +10,7 @@ pluginManagement {
     kotlin("plugin.spring") version kotlinVersion
 
     id("org.springframework.boot") version "2.7.4"
-    id("io.spring.dependency-management") version "1.0.14.RELEASE"
+    id("io.spring.dependency-management") version "1.1.0"
 
     // quality
     id("io.gitlab.arturbosch.detekt") version "1.21.0"
