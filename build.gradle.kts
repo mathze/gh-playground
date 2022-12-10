@@ -41,6 +41,8 @@ dependencies {
   testImplementation(group = "org.springframework.boot", name = "spring-boot-starter-test")
   testImplementation(group = "org.jetbrains.kotlin", name = "kotlin-test-junit5")
   testRuntimeOnly(group = "org.junit.jupiter", name = "junit-jupiter-engine")
+
+  detektPlugins(group = "io.gitlab.arturbosch.detekt", name = "detekt-rules-libraries", version = detekt.toolVersion)
 }
 
 configure<io.gitlab.arturbosch.detekt.extensions.DetektExtension> {
