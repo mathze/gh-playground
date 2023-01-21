@@ -24,10 +24,10 @@ group = "de.qualersoft"
 
 dependencyManagement {
   imports {
-    mavenBom("org.junit:junit-bom:5.9.1")
+    mavenBom("org.junit:junit-bom:5.9.2")
   }
   dependencies {
-    dependency("org.springframework.boot:spring-boot-starter-web:3.0.0") {
+    dependency("org.springframework.boot:spring-boot-starter-web:3.0.2") {
       exclude("org.springframework.boot:spring-boot-starter-tomcat")
     }
   }
@@ -82,11 +82,16 @@ tasks.named<org.jetbrains.dokka.gradle.DokkaTask>("dokkaHtml") {
   outputDirectory.set(buildDir.resolve("docs/kdoc"))
 }
 
+javaToolchains {
+  compilerFor {
+    languageVersion.set(JavaLanguageVersion.of("17"))
+  }
+}
+
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-  kotlinOptions {
-    freeCompilerArgs = listOf("-Xjsr305=strict")
-    jvmTarget = JavaVersion.VERSION_17.toString()
-//    useIR = true
+  compilerOptions {
+    freeCompilerArgs.add("-Xjsr305=strict")
+    jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
   }
 }
 
