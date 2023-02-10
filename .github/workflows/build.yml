@@ -157,7 +157,7 @@ jobs:
         run: ${{ github.workspace }}/gradlew test jacocoTestReport
 
       - name: Report test results
-        uses: EnricoMi/publish-unit-test-result-action@v2.3.0
+        uses: EnricoMi/publish-unit-test-result-action@v2.4.1
         if: always()
         with:
           junit_files: ${{ github.workspace }}/build/test-results/**/*.xml
