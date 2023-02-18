@@ -9,6 +9,9 @@ on:
       - feature/**
       - renovate/**
 
+env:
+  FOSSA_TELEMETRY_SCOPE: off
+
 jobs:
   debug:
     runs-on: ubuntu-latest
@@ -36,12 +39,6 @@ jobs:
       branch: ${{ steps.extract_branch.outputs.branch }}
     steps:
       - uses: actions/checkout@v3
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-          cache: 'gradle'
 
       - name: Extract branch name
         id: extract_branch
@@ -55,7 +52,7 @@ jobs:
 
       - name: "get fossa"
         run: |
-          curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh > install.sh
+          curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install-latest.sh > install.sh
           sudo bash install.sh -b .
 
   staticDetektCheck:
