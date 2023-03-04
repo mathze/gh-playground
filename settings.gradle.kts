@@ -9,14 +9,14 @@ pluginManagement {
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
 
-    id("org.springframework.boot") version "3.0.3"
+    id("org.springframework.boot") version "3.0.4"
     id("io.spring.dependency-management") version "1.1.0"
 
     // quality
     id("io.gitlab.arturbosch.detekt") version "1.22.0"
 
     // documentation
-    id("org.jetbrains.dokka") version "1.7.20"
+    id("org.jetbrains.dokka") version "1.8.10"
     id("org.asciidoctor.jvm.convert") version "3.3.2"
   }
 }
