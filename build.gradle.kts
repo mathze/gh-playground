@@ -52,7 +52,7 @@ configure<io.gitlab.arturbosch.detekt.extensions.DetektExtension> {
 }
 
 jacoco {
-  toolVersion = "0.8.9"
+  toolVersion = "0.8.10"
 }
 
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
