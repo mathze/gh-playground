@@ -24,7 +24,7 @@ group = "de.qualersoft"
 
 dependencyManagement {
   imports {
-    mavenBom("org.junit:junit-bom:5.9.2")
+    mavenBom("org.junit:junit-bom:5.9.3")
   }
   dependencies {
     dependency("org.springframework.boot:spring-boot-starter-web:3.0.6") {
