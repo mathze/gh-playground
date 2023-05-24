@@ -47,8 +47,8 @@ dependencies {
 
 configure<io.gitlab.arturbosch.detekt.extensions.DetektExtension> {
   allRules = true
-  config = files("$rootDir/detekt.yml")
-  source = files("src/main/kotlin")
+  config.from(files("$rootDir/detekt.yml"))
+  source.from(files("src/main/kotlin"))
 }
 
 jacoco {
