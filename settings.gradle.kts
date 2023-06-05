@@ -16,7 +16,7 @@ pluginManagement {
     id("io.gitlab.arturbosch.detekt") version "1.23.0"
 
     // documentation
-    id("org.jetbrains.dokka") version "1.8.10"
+    id("org.jetbrains.dokka") version "1.8.20"
     id("org.asciidoctor.jvm.convert") version "3.3.2"
   }
 }
