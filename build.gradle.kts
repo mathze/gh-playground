@@ -55,11 +55,12 @@ jacoco {
   toolVersion = "0.8.11"
 }
 
-tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt> {
   reports {
-    html.required.set(true)
-    xml.required.set(true)
-    txt.required.set(false)
+    html.required = true
+    xml.required = true
+    sarif.required = true
+    txt.required = false
   }
 }
 
@@ -72,9 +73,9 @@ tasks.test {
 
 tasks.withType<JacocoReport> {
   reports {
-    xml.required.set(true)
-    html.required.set(true)
-    csv.required.set(false)
+    xml.required = true
+    html.required = true
+    csv.required = false
   }
 }
 
@@ -84,14 +85,14 @@ tasks.dokkaHtml {
 
 javaToolchains {
   compilerFor {
-    languageVersion.set(JavaLanguageVersion.of(21))
+    languageVersion = JavaLanguageVersion.of(21)
   }
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
   compilerOptions {
     freeCompilerArgs.add("-Xjsr305=strict")
-    jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
+    jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
   }
 }
 
