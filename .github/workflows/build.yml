@@ -63,7 +63,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
           cache: 'gradle'
 
       - name: "Reports cache"
@@ -91,7 +91,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
           cache: 'gradle'
 
       - name: "Fossa analyze"
@@ -107,7 +107,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
           cache: 'gradle'
 
       - name: "Load compile cache"
@@ -130,7 +130,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
           cache: 'gradle'
 
       - name: "Load compile cache"
@@ -154,7 +154,7 @@ jobs:
         run: ${{ github.workspace }}/gradlew test jacocoTestReport
 
       - name: Report test results
-        uses: EnricoMi/publish-unit-test-result-action@v2.7.0
+        uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
           junit_files: ${{ github.workspace }}/build/test-results/**/*.xml
@@ -192,7 +192,7 @@ jobs:
           key: ${{ runner.os }}-reports-${{ github.run_id }}
 
       - name: "Generate Report"
-        uses: codecov/codecov-action@v3.1.4
+        uses: codecov/codecov-action@v3
 
   publish:
     runs-on: ubuntu-latest
@@ -205,7 +205,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
           cache: 'gradle'
 
       - name: "Load compile cache"
