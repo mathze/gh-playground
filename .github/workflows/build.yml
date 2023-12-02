@@ -77,6 +77,11 @@ jobs:
 
       - name: "Detekt"
         run: ${{ github.workspace }}/gradlew detekt
+      - uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: build/reports/detekt/detekt.sarif
+          category: detekt
+
 
   staticFossaCheck:
     name: "Fossa licence analyze - static check"
@@ -141,23 +146,18 @@ jobs:
             ${{ github.workspace }}/build/kotlin/**
           key: ${{ runner.os }}-compile-${{ github.run_id }}
 
-      - name: "Reports cache"
-        uses: actions/cache@v3
-        with:
-          path: |
-            ${{ github.workspace }}/build/test-results/**
-            ${{ github.workspace }}/build/jacoco/**
-            ${{ github.workspace }}/build/reports/**
-          key: ${{ runner.os }}-reports-${{ github.run_id }}
-
       - name: "Unit test"
         run: ${{ github.workspace }}/gradlew test jacocoTestReport
 
-      - name: Report test results
+      - name: "Report test results"
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
           junit_files: ${{ github.workspace }}/build/test-results/**/*.xml
+
+      - name: "Generate Coverage Report"
+        if: always()
+        uses: codecov/codecov-action@v3
 
   licenceCheck:
     runs-on: ubuntu-latest
@@ -166,33 +166,16 @@ jobs:
       - staticFossaCheck
     steps:
       - name: "Fossa cache"
-        uses: actions/cache@v3
+        uses: actions/cache/restore@v3
         with:
           path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-fossa-${{ github.run_id }}
+
 
       - name: "Fossa check license"
         env:
           FOSSA_API_KEY: ${{ secrets.FOSSA_API_KEY }}
         run: ${{ github.workspace }}/fossa test
-
-  report:
-    if: always()
-    runs-on: ubuntu-latest
-    needs:
-      - test
-    steps:
-      - name: "Reports cache"
-        uses: actions/cache@v3
-        with:
-          path: |
-            ${{ github.workspace }}/build/test-results/**
-            ${{ github.workspace }}/build/jacoco/**
-            ${{ github.workspace }}/build/reports/**
-          key: ${{ runner.os }}-reports-${{ github.run_id }}
-
-      - name: "Generate Report"
-        uses: codecov/codecov-action@v3
 
   publish:
     runs-on: ubuntu-latest
