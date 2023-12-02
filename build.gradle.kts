@@ -24,10 +24,10 @@ group = "de.qualersoft"
 
 dependencyManagement {
   imports {
-    mavenBom("org.junit:junit-bom:5.9.3")
+    mavenBom("org.junit:junit-bom:5.10.1")
   }
   dependencies {
-    dependency("org.springframework.boot:spring-boot-starter-web:3.1.0") {
+    dependency("org.springframework.boot:spring-boot-starter-web:3.2.0") {
       exclude("org.springframework.boot:spring-boot-starter-tomcat")
     }
   }
@@ -78,20 +78,20 @@ tasks.withType<JacocoReport> {
   }
 }
 
-tasks.named<org.jetbrains.dokka.gradle.DokkaTask>("dokkaHtml") {
-  outputDirectory.set(buildDir.resolve("docs/kdoc"))
+tasks.dokkaHtml {
+  outputDirectory = layout.buildDirectory.dir("docs/kdoc")
 }
 
 javaToolchains {
   compilerFor {
-    languageVersion.set(JavaLanguageVersion.of("17"))
+    languageVersion.set(JavaLanguageVersion.of(21))
   }
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
   compilerOptions {
     freeCompilerArgs.add("-Xjsr305=strict")
-    jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+    jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
   }
 }
 
