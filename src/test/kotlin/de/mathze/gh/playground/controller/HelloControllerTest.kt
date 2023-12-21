@@ -55,7 +55,7 @@ internal class HelloControllerTest {
   @Test
   fun sayHelloWithNames() {
     mvc.perform(
-      get("/hi?name=quinten mc   lacklin")
+      get("/hi?name=\t quinten mc   lacklin")
     ).andExpect(
       status().isOk
     ).andExpect(
