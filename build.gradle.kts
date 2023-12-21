@@ -26,6 +26,7 @@ dependencyManagement {
   imports {
     mavenBom("org.junit:junit-bom:5.10.1")
   }
+
   dependencies {
     dependency("org.springframework.boot:spring-boot-starter-web:3.2.0") {
       exclude("org.springframework.boot:spring-boot-starter-tomcat")
@@ -50,6 +51,14 @@ configure<io.gitlab.arturbosch.detekt.extensions.DetektExtension> {
   config.from(files("$rootDir/detekt.yml"))
   source.from(files("src/main/kotlin"))
 }
+configurations.detekt {
+  resolutionStrategy.eachDependency {
+    if (requested.group == "org.jetbrains.kotlin") {
+      useVersion(io.gitlab.arturbosch.detekt.getSupportedKotlinVersion())
+    }
+  }
+}
+
 
 jacoco {
   toolVersion = "0.8.11"
