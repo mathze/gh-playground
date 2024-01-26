@@ -38,7 +38,7 @@ jobs:
           cache: 'gradle'
 
       - name: Test
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
         with:
           arguments: test
 
