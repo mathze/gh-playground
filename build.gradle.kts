@@ -24,7 +24,7 @@ group = "de.qualersoft"
 
 dependencyManagement {
   imports {
-    mavenBom("org.junit:junit-bom:5.10.1")
+    mavenBom("org.junit:junit-bom:5.10.2")
   }
 
   dependencies {
