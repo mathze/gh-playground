@@ -24,7 +24,7 @@ group = "de.qualersoft"
 
 dependencyManagement {
   imports {
-    mavenBom("org.junit:junit-bom:5.10.1")
+    mavenBom("org.junit:junit-bom:5.10.2")
   }
 
   dependencies {
@@ -46,11 +46,12 @@ dependencies {
   detektPlugins(group = "io.gitlab.arturbosch.detekt", name = "detekt-rules-libraries", version = detekt.toolVersion)
 }
 
-configure<io.gitlab.arturbosch.detekt.extensions.DetektExtension> {
+detekt {
   allRules = true
   config.from(files("$rootDir/detekt.yml"))
   source.from(files("src/main/kotlin"))
 }
+// avoid kotlin version conflict (see https://detekt.dev/docs/gettingstarted/gradle#dependencies)
 configurations.detekt {
   resolutionStrategy.eachDependency {
     if (requested.group == "org.jetbrains.kotlin") {
@@ -58,7 +59,6 @@ configurations.detekt {
     }
   }
 }
-
 
 jacoco {
   toolVersion = "0.8.11"

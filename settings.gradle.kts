@@ -1,5 +1,5 @@
 pluginManagement {
-  val kotlinVersion = "1.9.22"
+  val kotlinVersion = "1.9.23"
   repositories {
     gradlePluginPortal()
   }
@@ -9,14 +9,14 @@ pluginManagement {
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
 
-    id("org.springframework.boot") version "3.2.1"
+    id("org.springframework.boot") version "3.2.3"
     id("io.spring.dependency-management") version "1.1.4"
 
     // quality
-    id("io.gitlab.arturbosch.detekt") version "1.23.4"
+    id("io.gitlab.arturbosch.detekt") version "1.23.5"
 
     // documentation
-    id("org.jetbrains.dokka") version "1.9.10"
+    id("org.jetbrains.dokka") version "1.9.20"
     id("org.asciidoctor.jvm.convert") version "3.3.2"
   }
 }
