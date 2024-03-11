@@ -166,7 +166,7 @@ jobs:
       - staticFossaCheck
     steps:
       - name: "Fossa cache"
-        uses: actions/cache/restore@v3
+        uses: actions/cache/restore@v4
         with:
           path: ${{ github.workspace }}/**
           key: ${{ runner.os }}-fossa-${{ github.run_id }}
