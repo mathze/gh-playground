@@ -60,10 +60,6 @@ configurations.detekt {
   }
 }
 
-jacoco {
-  toolVersion = "0.8.11"
-}
-
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt> {
   reports {
     html.required = true
@@ -95,13 +91,6 @@ tasks.dokkaHtml {
 javaToolchains {
   compilerFor {
     languageVersion = JavaLanguageVersion.of(21)
-  }
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-  compilerOptions {
-    freeCompilerArgs.add("-Xjsr305=strict")
-    jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
   }
 }
 
