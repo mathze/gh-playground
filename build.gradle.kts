@@ -28,7 +28,7 @@ dependencyManagement {
   }
 
   dependencies {
-    dependency("org.springframework.boot:spring-boot-starter-web:3.2.4") {
+    dependency("org.springframework.boot:spring-boot-starter-web:3.3.1") {
       exclude("org.springframework.boot:spring-boot-starter-tomcat")
     }
   }
