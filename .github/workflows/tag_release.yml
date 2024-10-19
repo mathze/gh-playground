@@ -24,7 +24,7 @@ jobs:
           fi
 
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup Git
         run: |
@@ -43,14 +43,11 @@ jobs:
             # we only move tags if it is a 'final' release
             git tag v${MAYOR}.${MINOR}.${PATCH}
             git tag -f v${MAYOR}.${MINOR}
-            git tag -f latest
             git tag -f v${MAYOR}
+            git tag -f latest
 
-            git push v${MAYOR}.${MINOR}.${PATCH}
-            git push v${MAYOR}.${MINOR}
-            git push v${MAYOR}
-            git push latest
+            git push origin --tags -f
           else
             git tag v${{ github.event.inputs.version }}
-            git push v${{ github.event.inputs.version }}
+            git push origin --tags
           fi
