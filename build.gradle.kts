@@ -51,6 +51,7 @@ detekt {
   config.from(files("$rootDir/detekt.yml"))
   source.from(files("src/main/kotlin"))
 }
+
 // avoid kotlin version conflict (see https://detekt.dev/docs/gettingstarted/gradle#dependencies)
 configurations.detekt {
   resolutionStrategy.eachDependency {
