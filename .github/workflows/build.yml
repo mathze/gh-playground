@@ -157,7 +157,7 @@ jobs:
 
       - name: "Generate Coverage Report"
         if: always()
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
 
   licenceCheck:
     runs-on: ubuntu-latest
